@@ -1,3 +1,57 @@
-[gd_scene format=3 uid="uid://brxf2ib8hqpj1"]
+[gd_scene load_steps=7 format=3 uid="uid://brxf2ib8hqpj1"]
+
+[ext_resource type="Script" uid="uid://cuh2xfnr8pdu2" path="res://scenes/3d_player.gd" id="1_r13l1"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_752yx"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_r13l1"]
+size = Vector3(10, 1, 10)
+
+[sub_resource type="BoxMesh" id="BoxMesh_snuqo"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_esd17"]
+size = Vector3(3.3955078, 2.9, 0.93548584)
+
+[sub_resource type="Environment" id="Environment_752yx"]
+background_mode = 1
+fog_enabled = true
+fog_light_color = Color(0.11739277, 3.1423366e-05, 0.14232334, 1)
 
 [node name="GameWorld3d" type="Node3D"]
+
+[node name="RigidBody3D" type="RigidBody3D" parent="."]
+gravity_scale = 0.0
+script = ExtResource("1_r13l1")
+
+[node name="Camera3D" type="Camera3D" parent="RigidBody3D"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="RigidBody3D"]
+shape = SubResource("BoxShape3D_752yx")
+
+[node name="Area3D" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.568692, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+shape = SubResource("BoxShape3D_r13l1")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Area3D"]
+transform = Transform3D(10, 0, 0, 0, 1, 0, 0, 0, 10, 0, 0, 0)
+mesh = SubResource("BoxMesh_snuqo")
+
+[node name="Area3D2" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.4221133, -3.3339798)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.052246094, -0.027923584, 0.019439697)
+shape = SubResource("BoxShape3D_esd17")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Area3D2"]
+transform = Transform3D(3.5, 0, 0, 0, 2.9, 0, 0, 0, 1, 0, 0, 0)
+mesh = SubResource("BoxMesh_snuqo")
+
+[node name="OmniLight3D" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.062996, 0.7416855, -1.9754498)
+light_color = Color(0.08007947, 0.26517454, 0.69993263, 1)
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_752yx")
