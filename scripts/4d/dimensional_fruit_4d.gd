@@ -48,10 +48,3 @@ func update_visual_projection():
 	if not is_collected:
 		var pulse = 1.0 + sin(Time.get_ticks_msec() * 0.003) * 0.2
 		scale = Vector3.ONE * pulse
-
-	# Dim if player is in wrong dimension
-	var current_dim = GameWorld4D.dimension_manager.current_dimension
-	if current_dim != required_dimension:
-		modulate = Color(1, 1, 1, 0.3)  # Make translucent
-	else:
-		modulate = Color(1, 1, 1, 1.0)  # Full opacity
