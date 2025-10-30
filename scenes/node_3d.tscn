@@ -1,0 +1,29 @@
+[gd_scene load_steps=5 format=3 uid="uid://xaym516s5ehm"]
+
+[ext_resource type="Script" uid="uid://dq5aic6kgscyo" path="res://node_3d.gd" id="1_tyffc"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_tyffc"]
+sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+ground_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+
+[sub_resource type="Sky" id="Sky_ns6u7"]
+sky_material = SubResource("ProceduralSkyMaterial_tyffc")
+
+[sub_resource type="Environment" id="Environment_5t4e2"]
+background_mode = 3
+background_energy_multiplier = 2.38
+sky = SubResource("Sky_ns6u7")
+ambient_light_color = Color(1, 0.81633335, 0.42000002, 1)
+tonemap_mode = 2
+glow_enabled = true
+fog_enabled = true
+fog_light_color = Color(1, 0.8156863, 0.41960785, 1)
+
+[node name="Node3D" type="Node3D"]
+script = ExtResource("1_tyffc")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_5t4e2")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2)
