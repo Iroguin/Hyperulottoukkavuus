@@ -1,9 +1,10 @@
-[gd_scene load_steps=6 format=3 uid="uid://hs3lu5v7vtxn"]
+[gd_scene load_steps=7 format=3 uid="uid://hs3lu5v7vtxn"]
 
 [ext_resource type="Script" uid="uid://bdgcw74q020se" path="res://scripts/4d/game_world_4d.gd" id="1_odb06"]
 [ext_resource type="Script" uid="uid://ou2lhy6du72m" path="res://scripts/4d/dimension_manager_4d.gd" id="2_73xf8"]
 [ext_resource type="Script" uid="uid://br8xmi3pn5ahv" path="res://scripts/4d/collision_manager_4d.gd" id="3_trm3w"]
 [ext_resource type="Script" uid="uid://co36lml6hwiel" path="res://scripts/level_manager.gd" id="4_6mlxs"]
+[ext_resource type="PackedScene" uid="uid://cwb3w5d7gw1ci" path="res://scenes/tesseract.tscn" id="5_6mlxs"]
 
 [sub_resource type="Environment" id="Environment_trm3w"]
 
@@ -23,3 +24,11 @@ script = ExtResource("4_6mlxs")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_trm3w")
+
+[node name="tesseract" parent="." instance=ExtResource("5_6mlxs")]
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(0.6988524, -0.43454432, 0.56813437, 0, 0.79429805, 0.6075283, -0.715266, -0.42457262, 0.5550971, 2.5093887, 2.3889143, 1.9831305)
+
+[node name="OmniLight3D" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.0987167, 0)
