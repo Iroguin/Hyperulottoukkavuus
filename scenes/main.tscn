@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://c0hmknqdflv5u"]
+[gd_scene load_steps=6 format=3 uid="uid://c0hmknqdflv5u"]
 
 [ext_resource type="Script" uid="uid://ou2lhy6du72m" path="res://scripts/4d/dimension_manager_4d.gd" id="1_0wfyh"]
 [ext_resource type="PackedScene" uid="uid://dqcrq7br8jfhl" path="res://scenes/object_4d.tscn" id="2_0wfyh"]
+[ext_resource type="PackedScene" uid="uid://c5jl6d2tcnjd7" path="res://scenes/Player_4d.tscn" id="3_jyhfs"]
 [ext_resource type="Script" uid="uid://caut3exbhkfrr" path="res://scripts/tester.gd" id="3_sugp2"]
 
 [sub_resource type="Environment" id="Environment_jyhfs"]
@@ -9,7 +10,7 @@
 [node name="Main" type="Node3D"]
 
 [node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1.3277214)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2.0521047)
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_jyhfs")
@@ -23,6 +24,8 @@ metadata/_custom_type_script = "uid://ou2lhy6du72m"
 [node name="objects" type="Node3D" parent="."]
 
 [node name="Object_4d" parent="objects" instance=ExtResource("2_0wfyh")]
+
+[node name="Player_4d" parent="objects" instance=ExtResource("3_jyhfs")]
 
 [node name="tester" type="Node3D" parent="."]
 script = ExtResource("3_sugp2")

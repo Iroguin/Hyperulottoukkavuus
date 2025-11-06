@@ -20,6 +20,10 @@ func _ready():
 	add_to_group("4d_objects")
 	GameWorld4D.register_object(self)
 	setup_shader()
+	# DEBUG:
+	print("Object4D spawned: ", name)
+	print("  Position 4D: ", position_4d)
+	print("  3D Position: ", global_position)
 
 func _physics_process(delta):
 	# Update 4D physics
