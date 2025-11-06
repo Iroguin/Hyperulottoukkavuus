@@ -1,0 +1,7 @@
+[gd_scene load_steps=3 format=3 uid="uid://cwb3w5d7gw1ci"]
+
+[ext_resource type="PackedScene" uid="uid://cuw1ps0u830re" path="res://tesseract.glb" id="1_m6kod"]
+[ext_resource type="Script" uid="uid://48i8mi766363" path="res://scenes/tesseract.gd" id="2_uudav"]
+
+[node name="tesseract" instance=ExtResource("1_m6kod")]
+script = ExtResource("2_uudav")
