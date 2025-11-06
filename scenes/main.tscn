@@ -1,9 +1,10 @@
-[gd_scene load_steps=6 format=3 uid="uid://d4ib45dnmkuek"]
+[gd_scene load_steps=7 format=3 uid="uid://c0hmknqdflv5u"]
 
 [ext_resource type="Script" uid="uid://ou2lhy6du72m" path="res://scripts/4d/dimension_manager_4d.gd" id="1_0wfyh"]
-[ext_resource type="PackedScene" path="res://scenes/object_4d.tscn" id="2_0wfyh"]
+[ext_resource type="PackedScene" uid="uid://dqcrq7br8jfhl" path="res://scenes/object_4d.tscn" id="2_0wfyh"]
 [ext_resource type="PackedScene" uid="uid://cp6vuyvhc8q7" path="res://scenes/Player_4d.tscn" id="3_jyhfs"]
-[ext_resource type="Script" path="res://scripts/tester.gd" id="3_sugp2"]
+[ext_resource type="Script" uid="uid://caut3exbhkfrr" path="res://scripts/tester.gd" id="3_sugp2"]
+[ext_resource type="Script" uid="uid://b5735vw5qn6o" path="res://scripts/4d/camera_4d_follow.gd" id="5_tbgi4"]
 
 [sub_resource type="Environment" id="Environment_jyhfs"]
 
@@ -24,5 +25,30 @@ metadata/_custom_type_script = "uid://ou2lhy6du72m"
 
 [node name="Player_4d" parent="objects" instance=ExtResource("3_jyhfs")]
 
+[node name="obstacle_4d" parent="objects" instance=ExtResource("2_0wfyh")]
+transform = Transform3D(10, 0, 0, 0, 1, 0, 0, 0, 10, 0, -1.322259, 0)
+
 [node name="tester" type="Node3D" parent="."]
 script = ExtResource("3_sugp2")
+
+[node name="Camera4D" type="Camera3D" parent="." node_paths=PackedStringArray("target")]
+script = ExtResource("5_tbgi4")
+target = NodePath("../objects/Player_4d")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="controls_label" type="Label" parent="CanvasLayer"]
+offset_left = 847.0
+offset_top = 391.0
+offset_right = 1152.0
+offset_bottom = 648.0
+text = "WASD - Move XZ
+Space/Shift - Move Y (up/down)
+I/K - Move W (4th dimension)
+
+Q/E - Rotate XW
+R/F - Rotate YW  
+T/G - Rotate ZW
+
+Arrow Up/Down - Move through W-slice
+[/] - Change dimension (1D/2D/3D/4D)"
