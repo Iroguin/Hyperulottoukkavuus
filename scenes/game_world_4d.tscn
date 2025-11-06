@@ -1,11 +1,13 @@
-[gd_scene load_steps=5 format=3 uid="uid://hs3lu5v7vtxn"]
+[gd_scene load_steps=6 format=3 uid="uid://hs3lu5v7vtxn"]
 
 [ext_resource type="Script" uid="uid://bdgcw74q020se" path="res://scripts/4d/game_world_4d.gd" id="1_odb06"]
 [ext_resource type="Script" uid="uid://ou2lhy6du72m" path="res://scripts/4d/dimension_manager_4d.gd" id="2_73xf8"]
 [ext_resource type="Script" uid="uid://br8xmi3pn5ahv" path="res://scripts/4d/collision_manager_4d.gd" id="3_trm3w"]
 [ext_resource type="Script" uid="uid://co36lml6hwiel" path="res://scripts/level_manager.gd" id="4_6mlxs"]
 
-[node name="GameWorld4D" type="Node3D"]
+[sub_resource type="Environment" id="Environment_trm3w"]
+
+[node name="GameWorld4D" type="Node"]
 script = ExtResource("1_odb06")
 
 [node name="DimensionManager" type="Node" parent="."]
@@ -18,3 +20,6 @@ script = ExtResource("3_trm3w")
 script = ExtResource("4_6mlxs")
 
 [node name="ObjectRegistry" type="Node" parent="."]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_trm3w")

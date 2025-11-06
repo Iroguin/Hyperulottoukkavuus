@@ -1,0 +1,29 @@
+[gd_scene load_steps=6 format=3 uid="uid://cp6vuyvhc8q7"]
+
+[ext_resource type="PackedScene" path="res://scenes/object_4d.tscn" id="1_2w0c7"]
+[ext_resource type="Script" path="res://scripts/player.gd" id="2_5aii4"]
+[ext_resource type="Shader" uid="uid://dl546fpp4d6sp" path="res://shaders/4d_projection.gdshader" id="3_5aii4"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_41j7g"]
+render_priority = 0
+shader = ExtResource("3_5aii4")
+shader_parameter/w_distance = 3.0
+shader_parameter/angle_xw = 0.0
+shader_parameter/angle_yw = 0.0
+shader_parameter/angle_zw = 0.0
+shader_parameter/angle_xy = 0.0
+shader_parameter/angle_xz = 0.0
+shader_parameter/angle_yz = 0.0
+shader_parameter/line_width = 0.05
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_dw43v"]
+material = SubResource("ShaderMaterial_41j7g")
+
+[node name="Player_4d" instance=ExtResource("1_2w0c7")]
+script = ExtResource("2_5aii4")
+
+[node name="MeshInstance3D" parent="." index="0"]
+mesh = SubResource("CapsuleMesh_dw43v")
+
+[node name="Camera3D" type="Camera3D" parent="." index="1"]
+transform = Transform3D(1, 0, 0, 0, 0.8738316, 0.48622862, 0, -0.48622862, 0.8738316, 0, 0.66961896, 0.77796996)

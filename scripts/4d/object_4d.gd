@@ -3,9 +3,10 @@ extends Node3D
 class_name Object4D
 
 # True 4D properties
-var position_4d := Vector4.ZERO
-var velocity_4d := Vector4.ZERO
-var collision_radius_4d := 1.0
+@export var position_4d := Vector4.ZERO
+@export var collision_radius_4d := 1.0
+@export var velocity_4d := Vector4.ZERO
+
 
 # Dimension state
 var exists_in_dimensions := [true, true, true, true]  # [1D, 2D, 3D, 4D]
@@ -19,6 +20,10 @@ func _ready():
 	add_to_group("4d_objects")
 	GameWorld4D.register_object(self)
 	setup_shader()
+	# DEBUG:
+	print("Object4D spawned: ", name)
+	print("  Position 4D: ", position_4d)
+	print("  3D Position: ", global_position)
 
 func _physics_process(delta):
 	# Update 4D physics
@@ -40,8 +45,6 @@ func update_visual_projection():
 	# Project based on current dimension
 	var projected_pos = GameWorld4D.dimension_manager.project_to_current_dimension(position_4d)
 	global_position = projected_pos
-
-	# Update shader parameters
 	update_shader_uniforms()
 
 func is_in_dimension(dim: int) -> bool:

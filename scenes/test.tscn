@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=3 uid="uid://bxrlv84ehrpxu"]
+
+[ext_resource type="PackedScene" uid="uid://4yt1s6a220xp" path="res://tesseract.blend" id="1_errlg"]
+
+[node name="test" type="Node3D"]
+
+[node name="tesseract" parent="." instance=ExtResource("1_errlg")]
+transform = Transform3D(-0.9999999, 0, 0, 0, -0.9999999, 0, 0, 0, 1, -0.23226047, -1.1920929e-07, -0.031451464)
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.97719777, 0.21233118, 0, -0.21233118, 0.97719777, 0, 0.5359739, 2.6356225)

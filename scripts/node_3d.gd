@@ -65,7 +65,7 @@ func create_tesseract():
 	add_child(mesh_instance)
 
 func setup_shader():
-	var shader = load("res://shaders/hypercube_4d.gdshader")
+	var shader = load("res://shaders/4d_projection.gdshader")
 	if not shader:
 		print("No Shader Found")
 	material = ShaderMaterial.new()
