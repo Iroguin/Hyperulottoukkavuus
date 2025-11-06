@@ -2,7 +2,7 @@
 extends Node
 class_name CollisionManager4D
 
-## Hypersphere collision with dimensional awareness
+## Hypersphere collision aka based on distance in 4d between objects
 
 func check_collisions(obj: Object4D) -> Array[Object4D]:
 	var collisions: Array[Object4D] = []
