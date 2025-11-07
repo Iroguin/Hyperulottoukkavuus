@@ -7,6 +7,7 @@ class_name Player4D
 
 func _ready():
 	super._ready()  # Call parent's _ready()
+	add_to_group("player")
 	print("Player4D initialized at: ", position_4d)
 
 func _process(delta):

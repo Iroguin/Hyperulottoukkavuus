@@ -1,7 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://cyeituw3e35fm"]
-
-[ext_resource type="Script" uid="uid://dnt03okasiqj6" path="res://scripts/4d/dimensional_fruit_4d.gd" id="1_eys3u"]
-
-[node name="Dimensiona_fruit" type="Node3D"]
-script = ExtResource("1_eys3u")
-metadata/_custom_type_script = "uid://c48md6rbj6hqm"
