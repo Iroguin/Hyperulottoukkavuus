@@ -51,7 +51,19 @@ func on_collision(other: Object4D):
 	velocity_4d += collision_normal * 2.0
 
 func _input(event):
+	# Dimension switching with mouse buttons
+	if event is InputEventMouseButton and event.pressed:
+		var dim_manager = GameWorld4D.dimension_manager
+		if event.button_index == MOUSE_BUTTON_LEFT:
+			# Decrease dimension (4D -> 3D -> 2D -> 1D)
+			var new_dim = max(1, dim_manager.current_dimension - 1)
+			dim_manager.set_dimension(new_dim)
+		elif event.button_index == MOUSE_BUTTON_RIGHT:
+			# Increase dimension (1D -> 2D -> 3D -> 4D)
+			var new_dim = min(4, dim_manager.current_dimension + 1)
+			dim_manager.set_dimension(new_dim)
+
 	# Optional: Reset position with R key
-	if event.is_action_pressed("ui_cancel"):  # ESC key
+	if event.is_action_pressed("ui_text_backspace"):  # R key
 		position_4d = Vector4(0, 1, 0, 0)
 		velocity_4d = Vector4.ZERO
