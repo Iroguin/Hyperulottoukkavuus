@@ -2,7 +2,7 @@
 extends Camera3D
 
 @export var target: Object4D
-@export var follow_speed := 5.0
+@export var follow_speed := 100.0
 @export var offset := Vector3(0, 3, 8)
 @export var follow_w_axis := true  # Whether to follow player in W dimension
 @export var mouse_sensitivity := 0.003
