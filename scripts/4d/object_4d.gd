@@ -45,6 +45,12 @@ func update_visual_projection():
 	# Project based on current dimension
 	var projected_pos = GameWorld4D.dimension_manager.project_to_current_dimension(position_4d)
 	global_position = projected_pos
+
+	# Compensate for perspective scaling if this is the player
+	# to maintain consistent size regardless of W position
+	if is_in_group("player"):
+		compensate_perspective_scale()
+
 	update_shader_uniforms()
 
 func is_in_dimension(dim: int) -> bool:
@@ -60,17 +66,44 @@ func get_position_in_dimension(dim: int) -> Variant:
 
 func setup_shader():
 	if mesh_instance:
+		# Players don't need the 4D projection shader since camera follows them
+		if is_in_group("player"):
+			# Use a simple standard material for consistent appearance
+			var standard_mat = StandardMaterial3D.new()
+			standard_mat.albedo_color = Color(0.3, 0.7, 1.0)  # Blue color for player
+			standard_mat.emission_enabled = true
+			standard_mat.emission = Color(0.2, 0.4, 0.6)
+			standard_mat.metallic = 0.7
+			standard_mat.roughness = 0.3
+			mesh_instance.set_surface_override_material(0, standard_mat)
+			return
+
+		# Try to get existing shader material from override or mesh
 		shader_material = mesh_instance.get_surface_override_material(0)
+		if shader_material == null and mesh_instance.mesh:
+			# Check if mesh has a material (must be ShaderMaterial)
+			var mesh_mat = mesh_instance.mesh.surface_get_material(0)
+			if mesh_mat is ShaderMaterial:
+				shader_material = mesh_mat
+
+		# If still no shader material, create one
 		if shader_material == null:
 			shader_material = ShaderMaterial.new()
 			shader_material.shader = preload("res://shaders/4d_projection.gdshader")
 			mesh_instance.set_surface_override_material(0, shader_material)
 
+func compensate_perspective_scale():
+	# For the player, ensure scale stays at 1.0 since camera follows them
+	# and they use a standard material without 4D projection shader
+	scale = Vector3.ONE
+
 func update_shader_uniforms():
-	if shader_material:
-		var dm = GameWorld4D.dimension_manager
-		shader_material.set_shader_parameter("w_distance", dm.w_distance)
-		shader_material.set_shader_parameter("angle_xw", dm.rotation_xw)
-		shader_material.set_shader_parameter("angle_yw", dm.rotation_yw)
-		shader_material.set_shader_parameter("angle_zw", dm.rotation_zw)
-	
+	# Player doesn't use shader material, so skip shader updates
+	if not shader_material:
+		return
+
+	var dm = GameWorld4D.dimension_manager
+	shader_material.set_shader_parameter("w_distance", dm.w_distance)
+	shader_material.set_shader_parameter("angle_xw", dm.rotation_xw)
+	shader_material.set_shader_parameter("angle_yw", dm.rotation_yw)
+	shader_material.set_shader_parameter("angle_zw", dm.rotation_zw)

@@ -84,7 +84,7 @@ func complete_level():
 	
 	is_level_complete = true
 	
-	print("🎉 LEVEL COMPLETE! 🎉")
+	print("  LEVEL COMPLETE! ")
 	print("  Time: ", "%.2f" % level_time, " seconds")
 	print("  Dimension Switches: ", dimension_switches)
 	

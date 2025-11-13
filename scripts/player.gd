@@ -35,11 +35,11 @@ func handle_movement(delta):
 		input_4d.w += 1
 	if Input.is_key_pressed(KEY_K):
 		input_4d.w -= 1
-	
+
 	# Apply movement
 	if input_4d.length() > 0:
 		input_4d = input_4d.normalized()
-		velocity_4d += input_4d * move_speed * delta * 10.0
+		velocity_4d += input_4d * move_speed * delta
 	
 	# Apply drag/friction
 	velocity_4d *= drag

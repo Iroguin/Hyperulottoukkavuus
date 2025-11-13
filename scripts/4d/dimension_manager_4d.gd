@@ -19,12 +19,10 @@ var rotation_zw := 0.0
 # Projection parameters
 var projection_distance := 2.0  # Distance from 4D "camera" to projection hyperplane
 
-func _process(delta):
-	# Optional: Add slice movement controls
-	if Input.is_key_pressed(KEY_UP):
-		w_distance += 2.0 * delta
-	if Input.is_key_pressed(KEY_DOWN):
-		w_distance -= 2.0 * delta
+func _process(_delta):
+	# Note: W-slice movement is now handled by camera_4d_follow.gd
+	# to maintain consistent player perspective
+	pass
 
 func is_object_in_current_slice(pos_4d: Vector4) -> bool:
 	"""Check if object is within the current W-slice"""
@@ -59,12 +57,19 @@ func project_to_3d(pos_4d: Vector4) -> Vector3:
 func project_4d_to_3d(pos_4d: Vector4) -> Vector3:
 	# Apply 4D rotations first
 	var rotated = apply_4d_rotations(pos_4d)
-	
+
 	# Perspective projection from 4D to 3D
 	# Similar to 3D to 2D perspective: divide by distance
 	var w_offset = rotated.w - w_distance
+
+	# Clamp w_offset to prevent objects from going "behind" the 4D camera
+	# This is analogous to near-plane clipping in 3D graphics
+	# Objects closer than 0.1 units in W-space are clamped
+	var min_w_offset = -projection_distance + 0.1
+	w_offset = max(w_offset, min_w_offset)
+
 	var w_factor = projection_distance / (projection_distance + w_offset)
-	
+
 	return Vector3(
 		rotated.x * w_factor,
 		rotated.y * w_factor,
