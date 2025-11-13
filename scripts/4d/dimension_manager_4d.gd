@@ -43,12 +43,13 @@ func project_to_current_dimension(pos_4d: Vector4) -> Vector3:
 	return Vector3.ZERO
 
 func project_to_1d(pos_4d: Vector4) -> Vector3:
-	# Show only X axis
+	# Show only X axis (side view, Y=0 fixed)
 	return Vector3(pos_4d.x, 0, 0)
 
 func project_to_2d(pos_4d: Vector4) -> Vector3:
-	# Show X and Y on the ground plane
-	return Vector3(pos_4d.x, 0, pos_4d.y)
+	# Show X and Y as side view (XY plane viewed from the side)
+	# Z is always 0 to keep it flat against the "screen"
+	return Vector3(pos_4d.x, pos_4d.y, 0)
 
 func project_to_3d(pos_4d: Vector4) -> Vector3:
 	# Show X, Y, Z normally (ignoring W)

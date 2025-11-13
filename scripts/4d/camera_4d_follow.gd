@@ -38,9 +38,11 @@ func _process(delta):
 	if not target:
 		return
 
+	# Get dimension manager once
+	var dim_manager = GameWorld4D.dimension_manager
+
 	# Follow player's W position to maintain consistent perspective
 	if follow_w_axis:
-		var dim_manager = GameWorld4D.dimension_manager
 		var current_w = dim_manager.get_slice_position()
 		var target_w = target.position_4d.w
 
@@ -51,18 +53,31 @@ func _process(delta):
 	# Get target's 3D projected position
 	var target_pos = target.global_position
 
-	# Calculate camera position with mouse look
-	# Start with base offset, then rotate it
-	var rotated_offset = offset.rotated(Vector3.UP, yaw)
-	# Apply pitch by rotating around the right vector
-	var right = Vector3.UP.cross(rotated_offset.normalized()).normalized()
-	rotated_offset = rotated_offset.rotated(right, pitch)
+	# Check current dimension for camera behavior
+	var current_dim = dim_manager.current_dimension
 
-	# Calculate desired camera position
-	var desired_pos = target_pos + rotated_offset
+	var desired_pos: Vector3
 
-	# Smooth follow
-	global_position = global_position.lerp(desired_pos, follow_speed * delta)
+	if current_dim <= 2:
+		# Lock camera to side view for 1D and 2D
+		# Camera looks directly at the XY plane from the side (positive Z)
+		desired_pos = target_pos + Vector3(0, 0, 10)
+		global_position = global_position.lerp(desired_pos, follow_speed * delta)
+		look_at(target_pos)
+	else:
+		# 3D and 4D: Free mouse look
+		# Calculate camera position with mouse look
+		# Start with base offset, then rotate it
+		var rotated_offset = offset.rotated(Vector3.UP, yaw)
+		# Apply pitch by rotating around the right vector
+		var right = Vector3.UP.cross(rotated_offset.normalized()).normalized()
+		rotated_offset = rotated_offset.rotated(right, pitch)
 
-	# Look at target
-	look_at(target_pos)
+		# Calculate desired camera position
+		desired_pos = target_pos + rotated_offset
+
+		# Smooth follow
+		global_position = global_position.lerp(desired_pos, follow_speed * delta)
+
+		# Look at target
+		look_at(target_pos)
