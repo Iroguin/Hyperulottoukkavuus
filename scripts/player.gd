@@ -19,23 +19,23 @@ func handle_movement(delta):
 	
 	# 3D Movement (WASD + Space/Ctrl)
 	if Input.is_key_pressed(KEY_W):
-		input_4d.z -= 1
+		input_4d.z -= 4
 	if Input.is_key_pressed(KEY_S):
-		input_4d.z += 1
+		input_4d.z += 4
 	if Input.is_key_pressed(KEY_A):
-		input_4d.x -= 1
+		input_4d.x -= 4
 	if Input.is_key_pressed(KEY_D):
-		input_4d.x += 1
+		input_4d.x += 4
 	if Input.is_key_pressed(KEY_SPACE):
-		input_4d.y += 1
+		input_4d.y += 4
 	if Input.is_key_pressed(KEY_SHIFT):
-		input_4d.y -= 1
+		input_4d.y -= 4
 	
 	# 4D Movement (I/K for W-axis)
-	if Input.is_key_pressed(KEY_I):
-		input_4d.w += 1
-	if Input.is_key_pressed(KEY_K):
-		input_4d.w -= 1
+	if Input.is_key_pressed(KEY_I) or Input.is_key_pressed(KEY_E):
+		input_4d.w += 4
+	if Input.is_key_pressed(KEY_K) or Input.is_key_pressed(KEY_Q):
+		input_4d.w -= 4
 
 	# Apply movement
 	if input_4d.length() > 0:
