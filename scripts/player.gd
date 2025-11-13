@@ -1,6 +1,7 @@
 # res://scripts/player_4d.gd
 extends Object4D
 class_name Player4D
+signal dimension_switch
 
 @export var move_speed := 5.0
 @export var drag := 0.95  # Friction/air resistance
@@ -56,10 +57,14 @@ func _input(event):
 		var dim_manager = GameWorld4D.dimension_manager
 		if event.button_index == MOUSE_BUTTON_LEFT:
 			# Decrease dimension (4D -> 3D -> 2D -> 1D)
+			if dim_manager.current_dimension != 1:
+				emit_signal("dimension_switch")
 			var new_dim = max(1, dim_manager.current_dimension - 1)
 			dim_manager.set_dimension(new_dim)
 		elif event.button_index == MOUSE_BUTTON_RIGHT:
 			# Increase dimension (1D -> 2D -> 3D -> 4D)
+			if dim_manager.current_dimension != 4:
+				emit_signal("dimension_switch")
 			var new_dim = min(4, dim_manager.current_dimension + 1)
 			dim_manager.set_dimension(new_dim)
 

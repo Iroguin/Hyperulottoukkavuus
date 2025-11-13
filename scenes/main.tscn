@@ -65,3 +65,5 @@ script = ExtResource("7_o6xl0")
 metadata/_custom_type_script = "uid://co36lml6hwiel"
 
 [node name="LevelUI" parent="." instance=ExtResource("8_tipki")]
+
+[connection signal="dimension_switch" from="objects/Player_4d" to="LevelManager" method="_on_player_4d_dimension_switch"]
