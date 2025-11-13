@@ -113,11 +113,14 @@ func load_next_level():
 func restart_level():
 	get_tree().reload_current_scene()
 
-func track_dimension_switch():
-	dimension_switches += 1
-	print("Dimension switches: ", dimension_switches)
+
 
 func get_completion_percentage() -> float:
 	if total_fruits == 0:
 		return 0.0
 	return (float(fruits_collected) / float(total_fruits)) * 100.0
+
+
+func _on_player_4d_dimension_switch() -> void:
+	dimension_switches += 1
+	print("Dimension switches: ", dimension_switches)
