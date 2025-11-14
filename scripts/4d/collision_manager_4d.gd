@@ -8,6 +8,9 @@ func check_collisions(obj: Object4D) -> Array[Object4D]:
 	var collisions: Array[Object4D] = []
 	var dimension = GameWorld4D.dimension_manager.current_dimension
 
+	# Check floor collision first
+	check_floor_collision(obj)
+
 	for other in get_tree().get_nodes_in_group("4d_objects"):
 		if other == obj:
 			continue
@@ -25,6 +28,35 @@ func check_collisions(obj: Object4D) -> Array[Object4D]:
 			collisions.append(other)
 
 	return collisions
+
+func check_floor_collision(obj: Object4D):
+	"""Check and resolve collision with infinite floor"""
+	var floors = get_tree().get_nodes_in_group("infinite_floor")
+	if floors.size() == 0:
+		return
+
+	var floor_obj = floors[0]  # Assume only one floor for now
+
+	if floor_obj.check_collision(obj):
+		# Push object out of floor
+		var response = floor_obj.get_collision_response(obj)
+		obj.position_4d += response
+
+		# Set is_on_ground flag for player
+		if obj.is_in_group("player") and "is_on_ground" in obj:
+			obj.is_on_ground = true
+
+		# Dampen Y velocity (bounce/friction)
+		if obj.velocity_4d.y < 0:
+			obj.velocity_4d.y *= -0.3  # Bounce with energy loss
+			# Apply friction to horizontal movement
+			obj.velocity_4d.x *= 0.95
+			obj.velocity_4d.z *= 0.95
+			obj.velocity_4d.w *= 0.95
+	else:
+		# Not on ground
+		if obj.is_in_group("player") and "is_on_ground" in obj:
+			obj.is_on_ground = false
 
 func check_hypersphere_collision(a: Object4D, b: Object4D, dimensions: int) -> bool:
 	"""Check collision in N dimensions (1D, 2D, 3D, or 4D)"""
