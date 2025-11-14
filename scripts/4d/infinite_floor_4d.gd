@@ -5,7 +5,7 @@ class_name InfiniteFloor4D
 ## An infinite floor in 4D space (a 3D hyperplane)
 ## The floor is at a fixed Y coordinate, infinite in X, Z, and W
 
-@export var floor_y := -2.0  # Height of the floor in 4D space
+@export var floor_y := 0  # Height of the floor in 4D space
 @export var floor_size_visual := 100.0  # Size of visual mesh (for display only)
 
 var floor_mesh: MeshInstance3D

@@ -64,8 +64,15 @@ func _process(delta):
 		desired_pos = target_pos + Vector3(0, 0, 10)
 		global_position = global_position.lerp(desired_pos, follow_speed * delta)
 		look_at(target_pos)
+
+		# Use orthogonal (parallel) projection for 1D/2D
+		projection = PROJECTION_ORTHOGONAL
+		size = 10.0  # Orthogonal view size
 	else:
-		# 3D and 4D: Free mouse look
+		# 3D and 4D: Free mouse look with perspective projection
+		projection = PROJECTION_PERSPECTIVE
+		fov = 75.0  # Field of view for perspective mode
+
 		# Calculate camera position with mouse look
 		# Start with base offset, then rotate it
 		var rotated_offset = offset.rotated(Vector3.UP, yaw)
