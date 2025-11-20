@@ -56,7 +56,6 @@ offset_right = 1152.0
 offset_bottom = 648.0
 text = "WASD - Move XZ
 Space - Jump
-Shift - Move down
 Q/E - Move W (4th dimension)
 
 Mouse - Look around
