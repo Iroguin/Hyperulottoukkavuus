@@ -2,7 +2,7 @@
 extends Object4D
 class_name Player4D
 signal dimension_switch
-
+signal light
 @export var move_speed := 10.0
 @export var drag := 0.95  # Friction/air resistance
 @export var gravity := 20.0  # Gravity acceleration (downward Y)
@@ -105,12 +105,16 @@ func _input(event):
 				emit_signal("dimension_switch")
 			var new_dim = max(1, dim_manager.current_dimension - 1)
 			dim_manager.set_dimension(new_dim)
+			if new_dim == 2:
+				emit_signal("light", false)
 		elif event.button_index == MOUSE_BUTTON_RIGHT:
 			# Increase dimension (1D -> 2D -> 3D -> 4D)
 			if dim_manager.current_dimension != 4:
 				emit_signal("dimension_switch")
 			var new_dim = min(4, dim_manager.current_dimension + 1)
 			dim_manager.set_dimension(new_dim)
+			if new_dim == 3:
+				emit_signal("light", true)
 
 	# Optional: Reset position with R key
 	if event.is_action_pressed("ui_text_backspace"):  # R key

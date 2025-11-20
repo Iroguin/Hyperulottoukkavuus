@@ -1,14 +1,17 @@
-[gd_scene load_steps=11 format=3 uid="uid://c0hmknqdflv5u"]
+[gd_scene load_steps=14 format=3 uid="uid://c0hmknqdflv5u"]
 
 [ext_resource type="Script" uid="uid://ou2lhy6du72m" path="res://scripts/4d/dimension_manager_4d.gd" id="1_0wfyh"]
+[ext_resource type="Script" uid="uid://dfjb432mi4mum" path="res://scenes/light.gd" id="1_choun"]
 [ext_resource type="PackedScene" uid="uid://dqcrq7br8jfhl" path="res://scenes/object_4d.tscn" id="2_0wfyh"]
 [ext_resource type="PackedScene" uid="uid://cp6vuyvhc8q7" path="res://scenes/Player_4d.tscn" id="3_jyhfs"]
 [ext_resource type="Script" uid="uid://caut3exbhkfrr" path="res://scripts/tester.gd" id="3_sugp2"]
 [ext_resource type="PackedScene" uid="uid://cfkwef15s8ye6" path="res://scenes/dimensional_fruit.tscn" id="4_tefeu"]
+[ext_resource type="PackedScene" uid="uid://bt54pnr0mbmo8" path="res://scenes/statics/box_obstacle_4d.tscn" id="5_choun"]
 [ext_resource type="Script" uid="uid://b5735vw5qn6o" path="res://scripts/4d/camera_4d_follow.gd" id="5_tbgi4"]
 [ext_resource type="PackedScene" uid="uid://bh8vwj3n2qk7t" path="res://scenes/infinite_floor.tscn" id="6_floor"]
 [ext_resource type="Script" uid="uid://co36lml6hwiel" path="res://scripts/level_manager.gd" id="7_o6xl0"]
 [ext_resource type="PackedScene" uid="uid://chd6hcfb5m7lf" path="res://scenes/level_ui.tscn" id="8_tipki"]
+[ext_resource type="PackedScene" uid="uid://bicgcfc1g7lw2" path="res://scenes/level2.tscn" id="11_eb6dy"]
 
 [sub_resource type="Environment" id="Environment_jyhfs"]
 
@@ -18,6 +21,7 @@
 environment = SubResource("Environment_jyhfs")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+script = ExtResource("1_choun")
 
 [node name="DimensionManager" type="Node" parent="."]
 script = ExtResource("1_0wfyh")
@@ -26,17 +30,25 @@ metadata/_custom_type_script = "uid://ou2lhy6du72m"
 [node name="objects" type="Node3D" parent="."]
 
 [node name="Object_4d" parent="objects" instance=ExtResource("2_0wfyh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.6732464, 0)
 
 [node name="Player_4d" parent="objects" instance=ExtResource("3_jyhfs")]
-
-[node name="obstacle_4d" parent="objects" instance=ExtResource("2_0wfyh")]
-transform = Transform3D(10, 0, 0, 0, 1, 0, 0, 0, 10, 0, -1.322259, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+move_speed = 30.0
+position_4d = Vector4(0, 1, 0, 0)
 
 [node name="DimensionalFruit" parent="objects" instance=ExtResource("4_tefeu")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 0, 0)
-position_4d = Vector4(10, 0, 0, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 1, 0)
+required_dimension = 3
+position_4d = Vector4(10, 1, 0, 0)
+
+[node name="box_obstacle_4d" parent="objects" instance=ExtResource("5_choun")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 0, 0)
+position_4d = Vector4(4, 0, 0, 0)
+collision_radius_4d = 0.5
 
 [node name="InfiniteFloor" parent="." instance=ExtResource("6_floor")]
+floor_y = 0
 
 [node name="tester" type="Node3D" parent="."]
 script = ExtResource("3_sugp2")
@@ -54,7 +66,6 @@ offset_right = 1152.0
 offset_bottom = 648.0
 text = "WASD - Move XZ
 Space - Jump
-Shift - Move down
 Q/E - Move W (4th dimension)
 
 Mouse - Look around
@@ -66,8 +77,10 @@ R - Reset position"
 
 [node name="LevelManager" type="Node" parent="."]
 script = ExtResource("7_o6xl0")
+next_level_scene = ExtResource("11_eb6dy")
 metadata/_custom_type_script = "uid://co36lml6hwiel"
 
 [node name="LevelUI" parent="." instance=ExtResource("8_tipki")]
 
 [connection signal="dimension_switch" from="objects/Player_4d" to="LevelManager" method="_on_player_4d_dimension_switch"]
+[connection signal="light" from="objects/Player_4d" to="DirectionalLight3D" method="_on_player_4d_light"]

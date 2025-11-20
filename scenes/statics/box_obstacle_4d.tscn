@@ -1,0 +1,26 @@
+[gd_scene load_steps=6 format=3 uid="uid://bt54pnr0mbmo8"]
+
+[ext_resource type="PackedScene" uid="uid://dqcrq7br8jfhl" path="res://scenes/object_4d.tscn" id="1_eqsiu"]
+[ext_resource type="Shader" uid="uid://dl546fpp4d6sp" path="res://shaders/4d_projection.gdshader" id="2_08j7s"]
+[ext_resource type="Script" uid="uid://c48md6rbj6hqm" path="res://scripts/4d/object_4d.gd" id="2_po52k"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_po52k"]
+render_priority = 0
+shader = ExtResource("2_08j7s")
+shader_parameter/w_distance = 3.0
+shader_parameter/angle_xw = 0.0
+shader_parameter/angle_yw = 0.0
+shader_parameter/angle_zw = 0.0
+shader_parameter/angle_xy = 0.0
+shader_parameter/angle_xz = 0.0
+shader_parameter/angle_yz = 0.0
+shader_parameter/line_width = 0.05
+
+[sub_resource type="BoxMesh" id="BoxMesh_08j7s"]
+material = SubResource("ShaderMaterial_po52k")
+
+[node name="box_obstacle_4d" instance=ExtResource("1_eqsiu")]
+script = ExtResource("2_po52k")
+
+[node name="MeshInstance3D" parent="." index="0"]
+mesh = SubResource("BoxMesh_08j7s")

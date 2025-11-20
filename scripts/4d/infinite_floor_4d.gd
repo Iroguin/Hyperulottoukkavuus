@@ -5,7 +5,7 @@ class_name InfiniteFloor4D
 ## An infinite floor in 4D space (a 3D hyperplane)
 ## The floor is at a fixed Y coordinate, infinite in X, Z, and W
 
-@export var floor_y := -2.0  # Height of the floor in 4D space
+@export var floor_y := 0  # Height of the floor in 4D space
 @export var floor_size_visual := 100.0  # Size of visual mesh (for display only)
 
 var floor_mesh: MeshInstance3D
@@ -18,7 +18,6 @@ func create_visual_mesh():
 	# Create a large visual plane to represent the floor
 	floor_mesh = MeshInstance3D.new()
 	add_child(floor_mesh)
-
 	var plane_mesh = PlaneMesh.new()
 	plane_mesh.size = Vector2(floor_size_visual, floor_size_visual)
 	floor_mesh.mesh = plane_mesh
