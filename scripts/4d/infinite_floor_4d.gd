@@ -18,7 +18,6 @@ func create_visual_mesh():
 	# Create a large visual plane to represent the floor
 	floor_mesh = MeshInstance3D.new()
 	add_child(floor_mesh)
-
 	var plane_mesh = PlaneMesh.new()
 	plane_mesh.size = Vector2(floor_size_visual, floor_size_visual)
 	floor_mesh.mesh = plane_mesh
