@@ -1,6 +1,7 @@
 [gd_scene load_steps=12 format=3 uid="uid://c0hmknqdflv5u"]
 
 [ext_resource type="Script" uid="uid://ou2lhy6du72m" path="res://scripts/4d/dimension_manager_4d.gd" id="1_0wfyh"]
+[ext_resource type="Script" uid="uid://dfjb432mi4mum" path="res://scenes/light.gd" id="1_choun"]
 [ext_resource type="PackedScene" uid="uid://dqcrq7br8jfhl" path="res://scenes/object_4d.tscn" id="2_0wfyh"]
 [ext_resource type="PackedScene" uid="uid://cp6vuyvhc8q7" path="res://scenes/Player_4d.tscn" id="3_jyhfs"]
 [ext_resource type="Script" uid="uid://caut3exbhkfrr" path="res://scripts/tester.gd" id="3_sugp2"]
@@ -19,6 +20,7 @@
 environment = SubResource("Environment_jyhfs")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+script = ExtResource("1_choun")
 
 [node name="DimensionManager" type="Node" parent="."]
 script = ExtResource("1_0wfyh")
@@ -60,7 +62,6 @@ offset_right = 1152.0
 offset_bottom = 648.0
 text = "WASD - Move XZ
 Space - Jump
-Shift - Move down
 Q/E - Move W (4th dimension)
 
 Mouse - Look around
@@ -77,3 +78,4 @@ metadata/_custom_type_script = "uid://co36lml6hwiel"
 [node name="LevelUI" parent="." instance=ExtResource("8_tipki")]
 
 [connection signal="dimension_switch" from="objects/Player_4d" to="LevelManager" method="_on_player_4d_dimension_switch"]
+[connection signal="light" from="objects/Player_4d" to="DirectionalLight3D" method="_on_player_4d_light"]
