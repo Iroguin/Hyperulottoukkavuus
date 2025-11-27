@@ -7,6 +7,7 @@ class_name InfiniteFloor4D
 
 @export var floor_y := 0  # Height of the floor in 4D space
 @export var floor_size_visual := 100.0  # Size of visual mesh (for display only)
+@export var surface_colour := Color(0.334, 0.334, 0.334, 1.0)
 
 var floor_mesh: MeshInstance3D
 
@@ -24,7 +25,7 @@ func create_visual_mesh():
 
 	# Create a simple material
 	var mat = StandardMaterial3D.new()
-	mat.albedo_color = Color(0.3, 0.3, 0.3)
+	mat.albedo_color = surface_colour
 	mat.metallic = 0.2
 	mat.roughness = 0.8
 	floor_mesh.set_surface_override_material(0, mat)
@@ -40,7 +41,7 @@ func _process(_delta):
 		floor_mesh.global_position = Vector3(player_pos.x, floor_y, player_pos.z)
 
 func check_collision(obj: Object4D) -> bool:
-	"""Check if object is colliding with the floor"""
+	"""Check if object is colliding with the floor"""  
 	# Floor collision is simple: object's Y position minus radius
 	var obj_bottom_y = obj.position_4d.y - obj.collision_radius_4d
 	return obj_bottom_y <= floor_y
