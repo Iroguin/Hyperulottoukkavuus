@@ -66,20 +66,17 @@ target = NodePath("../objects/Player_4d")
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="controls_label" type="Label" parent="CanvasLayer"]
-offset_left = 847.0
-offset_top = 391.0
-offset_right = 1152.0
+offset_left = 772.0
+offset_top = 466.0
+offset_right = 1207.0
 offset_bottom = 648.0
 text = "WASD - Move XZ
 Space - Jump
 Q/E - Move W (4th dimension)
-
 Mouse - Look around
 Left Click - Lower dimension (4D→3D→2D→1D)
 Right Click - Raise dimension (1D→2D→3D→4D)
-
-ESC - Toggle mouse capture
-R - Reset position"
+ESC - Toggle mouse capture"
 
 [node name="LevelManager" type="Node" parent="."]
 script = ExtResource("7_o6xl0")
