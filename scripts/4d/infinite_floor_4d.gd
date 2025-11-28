@@ -19,12 +19,23 @@ class_name CollisionPlane4D
 var floor_mesh_instance: MeshInstance3D
 var shader_material: ShaderMaterial
 
+# Hybrid regeneration tracking
+var last_regenerate_pos := Vector4.ZERO
+var last_plane_pos := Vector4.ZERO
+var last_plane_normal := Vector4.ZERO
+var regenerate_threshold := 50.0
+var snap_size := 2.0
+
 func _ready():
 	add_to_group("collision_plane_4d")
-	
+
 	# Normalize normal to ensure math works
 	plane_normal = plane_normal.normalized()
-	
+
+	# Initialize tracking for hybrid regeneration
+	last_plane_pos = position_4d
+	last_plane_normal = plane_normal
+
 	setup_visuals()
 
 func setup_visuals():
@@ -108,11 +119,9 @@ func generate_hyperplane_mesh():
 
 func _process(_delta):
 	# Update shader uniforms to match global 4D camera rotation
-	# Assuming you have a global singleton or group for the 4D camera
 	var camera_group = get_tree().get_nodes_in_group("camera_4d")
 	if camera_group.size() > 0:
 		var cam = camera_group[0]
-		# Pass the rotation angles from your camera script to the material
 		if "angle_xw" in cam: shader_material.set_shader_parameter("angle_xw", cam.angle_xw)
 		if "angle_yw" in cam: shader_material.set_shader_parameter("angle_yw", cam.angle_yw)
 		if "angle_zw" in cam: shader_material.set_shader_parameter("angle_zw", cam.angle_zw)
@@ -120,22 +129,38 @@ func _process(_delta):
 		if "angle_xz" in cam: shader_material.set_shader_parameter("angle_xz", cam.angle_xz)
 		if "angle_yz" in cam: shader_material.set_shader_parameter("angle_yz", cam.angle_yz)
 
-	# Infinite Floor Logic:
-	# Move visual mesh to follow player, projected onto the plane
+	# Hybrid infinite floor logic
 	var player = get_tree().get_first_node_in_group("player")
 	if player and "position_4d" in player:
 		# Project player position onto the plane
-		# P_proj = P - ( (P - PlaneOrigin) . Normal ) * Normal
 		var v = player.position_4d - position_4d
 		var dist = v.dot(plane_normal)
 		var projected_pos = player.position_4d - (plane_normal * dist)
-		#fix here snap apua auttakaa
-		
-		# We update the visual mesh node's 3D position to match the projected XYZ
-		# The Shader handles the W, but since we baked W into vertices, 
-		# "infinite" movement requires regenerating the mesh or using UV offsets.
-		# For simplicity/performance: We just move the 3D transform container.
-		floor_mesh_instance.global_position = Vector3(projected_pos.x, projected_pos.y, projected_pos.z)
+
+		# Check if we need to regenerate (significant movement or rotation)
+		var player_moved = (projected_pos - last_regenerate_pos).length()
+		var plane_moved = (position_4d - last_plane_pos).length()
+		var plane_rotated = plane_normal.dot(last_plane_normal) < 0.9999
+
+		if player_moved > regenerate_threshold or plane_moved > regenerate_threshold or plane_rotated:
+			# Full regeneration - update position_4d and rebuild mesh
+			position_4d = projected_pos
+			generate_hyperplane_mesh()
+			floor_mesh_instance.global_position = Vector3.ZERO
+
+			# Update tracking
+			last_regenerate_pos = projected_pos
+			last_plane_pos = position_4d
+			last_plane_normal = plane_normal
+		else:
+			# Grid snapping - just move the mesh for minor movements
+			var offset = projected_pos - position_4d
+			var snapped = Vector3(
+				round(offset.x / snap_size) * snap_size,
+				round(offset.y / snap_size) * snap_size,
+				round(offset.z / snap_size) * snap_size
+			)
+			floor_mesh_instance.global_position = snapped
 
 
 # --- COLLISION LOGIC ---

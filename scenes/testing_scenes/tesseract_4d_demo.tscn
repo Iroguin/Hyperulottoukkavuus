@@ -1,0 +1,41 @@
+[gd_scene load_steps=5 format=3 uid="uid://bvw8n7q2xk3yj"]
+
+[ext_resource type="Script" path="res://scenes/testing_scenes/tesseract_4d_controller.gd" id="1_tesseract_controller"]
+[ext_resource type="PackedScene" uid="uid://c888f8ew3ov42" path="res://blender_tests/tesseract_red_test_5.glb" id="2_tesseract_mesh"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_1"]
+sky_top_color = Color(0.385, 0.454, 0.55, 1)
+sky_horizon_color = Color(0.646, 0.656, 0.67, 1)
+ground_bottom_color = Color(0.102, 0.11, 0.13, 1)
+ground_horizon_color = Color(0.646, 0.656, 0.67, 1)
+
+[sub_resource type="Environment" id="Environment_1"]
+background_mode = 2
+sky_custom_fov = 90.0
+ambient_light_source = 3
+ambient_light_color = Color(1, 1, 1, 1)
+ambient_light_energy = 0.5
+tonemap_mode = 2
+glow_enabled = true
+glow_intensity = 0.3
+glow_strength = 0.8
+glow_blend_mode = 1
+
+[node name="Tesseract4DDemo" type="Node3D"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_1")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.866025, -0.433013, 0.25, 0, 0.5, 0.866025, -0.5, -0.75, 0.433013, 0, 5, 0)
+light_energy = 0.8
+shadow_enabled = true
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.965926, 0.258819, 0, -0.258819, 0.965926, 0, 2, 8)
+fov = 60.0
+
+[node name="TesseractController" type="Node3D" parent="."]
+script = ExtResource("1_tesseract_controller")
+
+[node name="tesseract_red_test_5" parent="TesseractController" instance=ExtResource("2_tesseract_mesh")]

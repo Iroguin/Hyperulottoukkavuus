@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://edr4vguefvlt"]
+
+[ext_resource type="Script" uid="uid://o8iib1xka5c5" path="res://check_tesseract_colors.gd" id="1_3807h"]
+
+[node name="vertex color test" type="Node"]
+script = ExtResource("1_3807h")

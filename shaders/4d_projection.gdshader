@@ -1,4 +1,5 @@
 shader_type spatial;
+render_mode cull_disabled;
 
 uniform float w_distance = 3.0;
 uniform float angle_xw = 0.0;
