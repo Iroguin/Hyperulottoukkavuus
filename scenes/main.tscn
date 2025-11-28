@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://c0hmknqdflv5u"]
+[gd_scene load_steps=14 format=3 uid="uid://c0hmknqdflv5u"]
 
 [ext_resource type="Script" uid="uid://ou2lhy6du72m" path="res://scripts/4d/dimension_manager_4d.gd" id="1_0wfyh"]
 [ext_resource type="Script" path="res://scenes/light.gd" id="1_choun"]
@@ -11,7 +11,6 @@
 [ext_resource type="PackedScene" uid="uid://bh8vwj3n2qk7t" path="res://scenes/infinite_floor.tscn" id="6_floor"]
 [ext_resource type="Script" uid="uid://co36lml6hwiel" path="res://scripts/level_manager.gd" id="7_o6xl0"]
 [ext_resource type="PackedScene" uid="uid://chd6hcfb5m7lf" path="res://scenes/level_ui.tscn" id="8_tipki"]
-[ext_resource type="PackedScene" uid="uid://bicgcfc1g7lw2" path="res://scenes/level2.tscn" id="11_eb6dy"]
 [ext_resource type="PackedScene" path="res://scenes/slice_plane_visualizer.tscn" id="13_trceg"]
 
 [sub_resource type="Environment" id="Environment_jyhfs"]
@@ -22,6 +21,8 @@
 environment = SubResource("Environment_jyhfs")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+sky_mode = 1
 script = ExtResource("1_choun")
 
 [node name="DimensionManager" type="Node" parent="."]
@@ -49,7 +50,10 @@ position_4d = Vector4(4, 0, 0, 0)
 collision_radius_4d = 0.5
 
 [node name="InfiniteFloor" parent="." instance=ExtResource("6_floor")]
-floor_y = 0
+visual_thickness = 20.0
+
+[node name="InfiniteCeiling" parent="." instance=ExtResource("6_floor")]
+transform = Transform3D(1, 0, 0, 0, -1, 8.742278e-08, 0, -8.742278e-08, -1, 0, 0, 0)
 
 [node name="tester" type="Node3D" parent="."]
 script = ExtResource("3_sugp2")
@@ -61,24 +65,20 @@ target = NodePath("../objects/Player_4d")
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="controls_label" type="Label" parent="CanvasLayer"]
-offset_left = 847.0
-offset_top = 391.0
-offset_right = 1152.0
+offset_left = 772.0
+offset_top = 466.0
+offset_right = 1207.0
 offset_bottom = 648.0
 text = "WASD - Move XZ
 Space - Jump
 Q/E - Move W (4th dimension)
-
 Mouse - Look around
 Left Click - Lower dimension (4D→3D→2D→1D)
 Right Click - Raise dimension (1D→2D→3D→4D)
-
-ESC - Toggle mouse capture
-R - Reset position"
+ESC - Toggle mouse capture"
 
 [node name="LevelManager" type="Node" parent="."]
 script = ExtResource("7_o6xl0")
-next_level_scene = ExtResource("11_eb6dy")
 metadata/_custom_type_script = "uid://co36lml6hwiel"
 
 [node name="LevelUI" parent="." instance=ExtResource("8_tipki")]
