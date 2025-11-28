@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<testsuites id="2025-11-28" name="report_5" tests="41" failures="0" skipped="0" flaky="0" time="0.000">
+	<testsuite id="0" name="test_slice_intersection" package="tests" timestamp="2025-11-28T12:47:13" hostname="localhost" tests="9" failures="0" errors="0" skipped="0" flaky="0" time="0.312">
+		<testcase name="test_line_plane_intersection_3d_perpendicular" classname="test_slice_intersection" time="0.015">
+		</testcase>
+		<testcase name="test_line_plane_intersection_3d_parallel" classname="test_slice_intersection" time="0.013">
+		</testcase>
+		<testcase name="test_line_plane_intersection_3d_angled" classname="test_slice_intersection" time="0.021">
+		</testcase>
+		<testcase name="test_line_hyperplane_intersection_4d" classname="test_slice_intersection" time="0.021">
+		</testcase>
+		<testcase name="test_edge_intersection_ratio" classname="test_slice_intersection" time="0.021">
+		</testcase>
+		<testcase name="test_sphere_hyperplane_intersection" classname="test_slice_intersection" time="0.021">
+		</testcase>
+		<testcase name="test_hypersphere_hyperplane_intersection_4d" classname="test_slice_intersection" time="0.021">
+		</testcase>
+		<testcase name="test_aabb_hyperplane_intersection" classname="test_slice_intersection" time="0.021">
+		</testcase>
+		<testcase name="test_intersection_on_edge_endpoints" classname="test_slice_intersection" time="0.021">
+		</testcase>
+	</testsuite>
+	<testsuite id="1" name="test_hyperplane" package="tests" timestamp="2025-11-28T12:47:13" hostname="localhost" tests="7" failures="0" errors="0" skipped="0" flaky="0" time="0.236">
+		<testcase name="test_hyperplane_creation_3d" classname="test_hyperplane" time="0.021">
+		</testcase>
+		<testcase name="test_hyperplane_creation_4d" classname="test_hyperplane" time="0.021">
+		</testcase>
+		<testcase name="test_point_to_hyperplane_distance_3d" classname="test_hyperplane" time="0.020">
+		</testcase>
+		<testcase name="test_point_to_hyperplane_distance_4d" classname="test_hyperplane" time="0.014">
+		</testcase>
+		<testcase name="test_hyperplane_rotation_around_y_axis" classname="test_hyperplane" time="0.014">
+		</testcase>
+		<testcase name="test_hyperplane_through_point" classname="test_hyperplane" time="0.013">
+		</testcase>
+		<testcase name="test_hyperplane_normal_normalization" classname="test_hyperplane" time="0.020">
+		</testcase>
+	</testsuite>
+	<testsuite id="2" name="test_edge_slicer" package="tests" timestamp="2025-11-28T12:47:14" hostname="localhost" tests="13" failures="0" errors="0" skipped="0" flaky="0" time="0.443">
+		<testcase name="test_slice_edge_crossing_hyperplane" classname="test_edge_slicer" time="0.022">
+		</testcase>
+		<testcase name="test_slice_edge_parallel_to_hyperplane" classname="test_edge_slicer" time="0.014">
+		</testcase>
+		<testcase name="test_slice_edge_outside_segment" classname="test_edge_slicer" time="0.014">
+		</testcase>
+		<testcase name="test_slice_triangle_through_middle" classname="test_edge_slicer" time="0.015">
+		</testcase>
+		<testcase name="test_slice_triangle_no_intersection" classname="test_edge_slicer" time="0.021">
+		</testcase>
+		<testcase name="test_slice_quad_through_middle" classname="test_edge_slicer" time="0.020">
+		</testcase>
+		<testcase name="test_classify_vertex_behind" classname="test_edge_slicer" time="0.014">
+		</testcase>
+		<testcase name="test_classify_vertex_on_plane" classname="test_edge_slicer" time="0.014">
+		</testcase>
+		<testcase name="test_classify_vertex_in_front" classname="test_edge_slicer" time="0.014">
+		</testcase>
+		<testcase name="test_does_edge_cross_hyperplane_yes" classname="test_edge_slicer" time="0.014">
+		</testcase>
+		<testcase name="test_does_edge_cross_hyperplane_no" classname="test_edge_slicer" time="0.014">
+		</testcase>
+		<testcase name="test_project_to_slice_space_drop_w" classname="test_edge_slicer" time="0.014">
+		</testcase>
+		<testcase name="test_project_to_slice_space_drop_x" classname="test_edge_slicer" time="0.014">
+		</testcase>
+	</testsuite>
+	<testsuite id="3" name="test_mesh_slicing" package="tests" timestamp="2025-11-28T12:47:14" hostname="localhost" tests="12" failures="0" errors="0" skipped="0" flaky="0" time="0.402">
+		<testcase name="test_cube_slice_face_on" classname="test_mesh_slicing" time="0.022">
+		</testcase>
+		<testcase name="test_cube_slice_diagonal" classname="test_mesh_slicing" time="0.020">
+		</testcase>
+		<testcase name="test_cube_slice_edge" classname="test_mesh_slicing" time="0.014">
+		</testcase>
+		<testcase name="test_cube_slice_corner" classname="test_mesh_slicing" time="0.013">
+		</testcase>
+		<testcase name="test_hypercube_slice_4d" classname="test_mesh_slicing" time="0.014">
+		</testcase>
+		<testcase name="test_hypercube_slice_4d_angled" classname="test_mesh_slicing" time="0.021">
+		</testcase>
+		<testcase name="test_sphere_slice_3d" classname="test_mesh_slicing" time="0.021">
+		</testcase>
+		<testcase name="test_hypersphere_slice_4d" classname="test_mesh_slicing" time="0.021">
+		</testcase>
+		<testcase name="test_slice_vertex_ordering" classname="test_mesh_slicing" time="0.014">
+		</testcase>
+		<testcase name="test_slice_degenerate_cases" classname="test_mesh_slicing" time="0.014">
+		</testcase>
+		<testcase name="test_slice_multiple_disconnected_regions" classname="test_mesh_slicing" time="0.014">
+		</testcase>
+		<testcase name="test_slice_mesh_attributes" classname="test_mesh_slicing" time="0.020">
+		</testcase>
+	</testsuite>
+</testsuites>

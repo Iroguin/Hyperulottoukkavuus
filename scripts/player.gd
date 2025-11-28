@@ -18,6 +18,7 @@ func _ready():
 func _process(delta):
 	apply_gravity(delta)
 	handle_movement(delta)
+	handle_slice_rotation(delta)
 
 func apply_gravity(delta):
 	# Apply gravity in the negative Y direction
@@ -89,6 +90,28 @@ func handle_movement(delta):
 	# Apply drag/friction
 	velocity_4d *= drag
 
+func handle_slice_rotation(delta):
+	var dim_manager = GameWorld4D.dimension_manager
+
+	# Only allow slice rotation in 1D and 2D modes
+	if dim_manager.current_dimension > 2:
+		return
+
+	var rotation_speed = 1.5  # radians per second
+	var rotation_changed = false
+
+	if Input.is_key_pressed(KEY_Z):
+		dim_manager.slice_rotation_angle -= rotation_speed * delta
+		rotation_changed = true
+	if Input.is_key_pressed(KEY_X):
+		dim_manager.slice_rotation_angle += rotation_speed * delta
+		rotation_changed = true
+
+	if rotation_changed:
+		var camera = get_viewport().get_camera_3d()
+		if camera:
+			dim_manager.update_slice_hyperplane(camera, global_position)
+
 func on_collision(other: Object4D):
 	print("Player collided with: ", other.name)
 	# Simple bounce back
@@ -99,12 +122,15 @@ func _input(event):
 	# Dimension switching with mouse buttons
 	if event is InputEventMouseButton and event.pressed:
 		var dim_manager = GameWorld4D.dimension_manager
+		var camera = get_viewport().get_camera_3d()
+
 		if event.button_index == MOUSE_BUTTON_LEFT:
 			# Decrease dimension (4D -> 3D -> 2D -> 1D)
 			if dim_manager.current_dimension != 1:
 				emit_signal("dimension_switch")
 			var new_dim = max(1, dim_manager.current_dimension - 1)
-			dim_manager.set_dimension(new_dim)
+			# Pass camera and player position for slice alignment
+			dim_manager.set_dimension(new_dim, camera, global_position)
 			if new_dim == 2:
 				emit_signal("light", false)
 		elif event.button_index == MOUSE_BUTTON_RIGHT:
@@ -112,9 +138,19 @@ func _input(event):
 			if dim_manager.current_dimension != 4:
 				emit_signal("dimension_switch")
 			var new_dim = min(4, dim_manager.current_dimension + 1)
-			dim_manager.set_dimension(new_dim)
+			# Pass camera and player position for slice alignment
+			dim_manager.set_dimension(new_dim, camera, global_position)
 			if new_dim == 3:
 				emit_signal("light", true)
+
+	# Manual slice update with U key
+	if event is InputEventKey and event.pressed and event.keycode == KEY_U:
+		var dim_manager = GameWorld4D.dimension_manager
+		var camera = get_viewport().get_camera_3d()
+		if camera and dim_manager.use_geometric_slicing:
+			# Update slice hyperplane without changing dimension
+			dim_manager.update_slice_hyperplane(camera, global_position)
+			print("Slice hyperplane manually updated")
 
 	# Optional: Reset position with R key
 	if event.is_action_pressed("ui_text_backspace"):  # R key

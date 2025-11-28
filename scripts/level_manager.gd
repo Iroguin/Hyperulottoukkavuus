@@ -7,6 +7,7 @@ signal fruit_collected
 
 @export var level_name := "Level 1"
 @export var next_level_scene: PackedScene
+@export_range(1, 4) var starting_dimension := 4  # What dimension the level starts in
 
 var player: Player4D
 var fruits: Array[DimensionalFruit] = []
@@ -17,6 +18,10 @@ var level_start_time := 0.0
 var level_time := 0.0
 var dimension_switches := 0
 var is_level_complete := false
+
+# Reset functionality
+var r_key_hold_time := 0.0
+var r_key_hold_threshold := 1.0  # Hold for 1 second to reset
 
 func _ready():
 	add_to_group("level_manager")
@@ -35,21 +40,30 @@ func _ready():
 	
 	# Find all fruits in the level
 	find_all_fruits()
-	
-	# Connect to dimension manager to track switches
+
+	# Set starting dimension
 	if GameWorld4D.dimension_manager:
-		# We'll track this manually since dimension_manager doesn't have a signal yet
-		pass
-	
+		GameWorld4D.dimension_manager.set_dimension(starting_dimension)
+		print("Starting dimension set to: ", starting_dimension)
+
 	# Start timer
 	level_start_time = Time.get_ticks_msec() / 1000.0
 
 func _process(delta):
 	if is_level_complete:
 		return
-	
+
 	# Update level time
 	level_time = (Time.get_ticks_msec() / 1000.0) - level_start_time
+
+	# Check for R key hold to reset level
+	if Input.is_key_pressed(KEY_R):
+		r_key_hold_time += delta
+		if r_key_hold_time >= r_key_hold_threshold:
+			print("Resetting level...")
+			restart_level()
+	else:
+		r_key_hold_time = 0.0
 
 func find_all_fruits():
 	fruits.clear()

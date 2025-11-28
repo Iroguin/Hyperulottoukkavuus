@@ -4,9 +4,12 @@ class_name CollisionManager4D
 
 ## Hypersphere collision aka based on distance in 4d between objects
 
+const GeometricIntersection = preload("res://scripts/4d/geometric_intersection.gd")
+
 func check_collisions(obj: Object4D) -> Array[Object4D]:
 	var collisions: Array[Object4D] = []
 	var dimension = GameWorld4D.dimension_manager.current_dimension
+	var dim_manager = GameWorld4D.dimension_manager
 
 	# Check floor collision first
 	check_floor_collision(obj)
@@ -19,15 +22,42 @@ func check_collisions(obj: Object4D) -> Array[Object4D]:
 		if not other.is_in_dimension(dimension):
 			continue
 
-		# Skip if object is outside current slice
-		if not GameWorld4D.dimension_manager.is_object_in_current_slice(other.position_4d):
-			continue
+		# NEW: Use geometric slice intersection if enabled
+		if dim_manager.use_geometric_slicing:
+			# Skip if object doesn't intersect current slice hyperplane
+			if not is_object_in_slice_geometric(other):
+				continue
+		else:
+			# OLD: Skip if object is outside current slice (simple W-distance check)
+			if not dim_manager.is_object_in_current_slice(other.position_4d):
+				continue
 
 		# Perform hypersphere collision in active dimensions only
 		if check_hypersphere_collision(obj, other, dimension):
 			collisions.append(other)
 
 	return collisions
+
+func is_object_in_slice_geometric(obj: Object4D) -> bool:
+	"""Check if object intersects the current slice hyperplane using geometric intersection"""
+	var dim_manager = GameWorld4D.dimension_manager
+	var hyperplane = dim_manager.get_slice_hyperplane()
+
+	if not hyperplane:
+		return true
+
+	# Use sphere-hyperplane intersection
+	var result = GeometricIntersection.sphere_hyperplane_intersection(
+		obj.position_4d,
+		obj.collision_radius_4d,
+		hyperplane
+	)
+
+	# Debug: Log when objects are culled
+	if not result and Time.get_ticks_msec() % 1000 < 50:  # Log occasionally
+		print("Object '", obj.name, "' outside slice at pos: ", obj.position_4d)
+
+	return result
 
 func check_floor_collision(obj: Object4D):
 	"""Check and resolve collision with infinite floor"""

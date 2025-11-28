@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://bjqxd0rplp7nb"]
+
+[ext_resource type="PackedScene" uid="uid://dqcrq7br8jfhl" path="res://scenes/object_4d.tscn" id="1_b3inm"]
+[ext_resource type="PackedScene" uid="uid://c888f8ew3ov42" path="res://blender_tests/tesseract_red_test_4.glb" id="2_ilfxe"]
+
+[node name="Object_4d" instance=ExtResource("1_b3inm")]
+
+[node name="tesseract_red_test_4" parent="." index="1" instance=ExtResource("2_ilfxe")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.16844034, 0, -2.3315225)

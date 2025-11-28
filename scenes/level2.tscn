@@ -1,6 +1,6 @@
-[gd_scene load_steps=13 format=3 uid="uid://bicgcfc1g7lw2"]
+[gd_scene load_steps=14 format=3 uid="uid://bicgcfc1g7lw2"]
 
-[ext_resource type="Script" uid="uid://dfjb432mi4mum" path="res://scenes/light.gd" id="1_76toy"]
+[ext_resource type="Script" path="res://scenes/light.gd" id="1_76toy"]
 [ext_resource type="Script" uid="uid://ou2lhy6du72m" path="res://scripts/4d/dimension_manager_4d.gd" id="2_8g4ke"]
 [ext_resource type="PackedScene" uid="uid://dqcrq7br8jfhl" path="res://scenes/object_4d.tscn" id="3_56gwk"]
 [ext_resource type="PackedScene" uid="uid://cp6vuyvhc8q7" path="res://scenes/Player_4d.tscn" id="4_ve5ok"]
@@ -11,6 +11,7 @@
 [ext_resource type="Script" uid="uid://b5735vw5qn6o" path="res://scripts/4d/camera_4d_follow.gd" id="9_o3sye"]
 [ext_resource type="Script" uid="uid://co36lml6hwiel" path="res://scripts/level_manager.gd" id="10_24ks5"]
 [ext_resource type="PackedScene" uid="uid://chd6hcfb5m7lf" path="res://scenes/level_ui.tscn" id="11_s4es8"]
+[ext_resource type="PackedScene" path="res://scenes/slice_plane_visualizer.tscn" id="12_8g4ke"]
 
 [sub_resource type="Environment" id="Environment_jyhfs"]
 
@@ -80,6 +81,8 @@ level_name = "Level 2"
 metadata/_custom_type_script = "uid://co36lml6hwiel"
 
 [node name="LevelUI" parent="." instance=ExtResource("11_s4es8")]
+
+[node name="SlicePlaneVisualizer" parent="." instance=ExtResource("12_8g4ke")]
 
 [connection signal="dimension_switch" from="objects/Player_4d" to="LevelManager" method="_on_player_4d_dimension_switch"]
 [connection signal="light" from="objects/Player_4d" to="DirectionalLight3D" method="_on_player_4d_light"]

@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://c8g4yn4l5q8po"]
+
+[ext_resource type="Script" path="res://scripts/4d/slice_plane_visualizer.gd" id="1_slice_viz"]
+
+[node name="SlicePlaneVisualizer" type="MeshInstance3D"]
+script = ExtResource("1_slice_viz")
+plane_size = 50.0
+opacity = 0.15
+color = Color(0.3, 0.7, 1, 1)

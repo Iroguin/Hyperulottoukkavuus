@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<testsuites id="2025-11-21" name="report_2" tests="13" failures="1" skipped="0" flaky="0" time="0.000">
+	<testsuite id="0" name="test_edge_slicer" package="tests" timestamp="2025-11-21T13:25:03" hostname="localhost" tests="13" failures="1" errors="0" skipped="0" flaky="0" time="0.443">
+		<testcase name="test_slice_edge_crossing_hyperplane" classname="test_edge_slicer" time="0.015">
+		</testcase>
+		<testcase name="test_slice_edge_parallel_to_hyperplane" classname="test_edge_slicer" time="0.021">
+			<failure message="FAILED: res://tests/test_edge_slicer.gd:30" type="FAILURE">
+<![CDATA[
+Expecting: 'false' but is 'true'
+]]>
+			</failure>
+		</testcase>
+		<testcase name="test_slice_edge_outside_segment" classname="test_edge_slicer" time="0.020">
+		</testcase>
+		<testcase name="test_slice_triangle_through_middle" classname="test_edge_slicer" time="0.021">
+		</testcase>
+		<testcase name="test_slice_triangle_no_intersection" classname="test_edge_slicer" time="0.021">
+		</testcase>
+		<testcase name="test_slice_quad_through_middle" classname="test_edge_slicer" time="0.014">
+		</testcase>
+		<testcase name="test_classify_vertex_behind" classname="test_edge_slicer" time="0.013">
+		</testcase>
+		<testcase name="test_classify_vertex_on_plane" classname="test_edge_slicer" time="0.014">
+		</testcase>
+		<testcase name="test_classify_vertex_in_front" classname="test_edge_slicer" time="0.020">
+		</testcase>
+		<testcase name="test_does_edge_cross_hyperplane_yes" classname="test_edge_slicer" time="0.021">
+		</testcase>
+		<testcase name="test_does_edge_cross_hyperplane_no" classname="test_edge_slicer" time="0.014">
+		</testcase>
+		<testcase name="test_project_to_slice_space_drop_w" classname="test_edge_slicer" time="0.014">
+		</testcase>
+		<testcase name="test_project_to_slice_space_drop_x" classname="test_edge_slicer" time="0.013">
+		</testcase>
+	</testsuite>
+</testsuites>

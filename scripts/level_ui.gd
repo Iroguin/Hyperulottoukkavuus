@@ -5,14 +5,19 @@ extends CanvasLayer
 @onready var fruits_label: Label = $MarginContainer/VBoxContainer/FruitsLabel
 @onready var time_label: Label = $MarginContainer/VBoxContainer/TimeLabel
 @onready var dimension_label: Label = $MarginContainer/VBoxContainer/DimensionLabel
+@onready var position_label: Label = $MarginContainer/VBoxContainer/PositionLabel
 @onready var completion: Label = $MarginContainer/completion
 
 var level_manager: LevelManager
+var player: Object4D
 
 func _ready():
 	# Find level manager
 	level_manager = get_tree().get_first_node_in_group("level_manager")
-	
+
+	# Find player
+	player = get_tree().get_first_node_in_group("player")
+
 	if level_manager:
 		level_name_label.text = level_manager.level_name
 		level_manager.fruit_collected.connect(update_fruits)
@@ -22,13 +27,18 @@ func _process(_delta):
 	if level_manager:
 		# Update fruits
 		fruits_label.text = "Fruits: %d/%d" % [level_manager.fruits_collected, level_manager.total_fruits]
-		
+
 		# Update time
 		time_label.text = "Time: %.1f s" % level_manager.level_time
-	
+
 	# Update dimension
 	if GameWorld4D.dimension_manager:
 		dimension_label.text = "Dimension: %dD" % GameWorld4D.dimension_manager.current_dimension
+
+	# Update player position
+	if player:
+		var pos = player.position_4d
+		position_label.text = "Position: X: %.2f Y: %.2f Z: %.2f W: %.2f" % [pos.x, pos.y, pos.z, pos.w]
 
 func update_fruits():
 	# Already updated in _process

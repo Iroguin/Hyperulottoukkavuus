@@ -27,5 +27,8 @@ layout_mode = 2
 [node name="TimeLabel" type="Label" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
 
+[node name="PositionLabel" type="Label" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+
 [node name="completion" type="Label" parent="MarginContainer"]
 layout_mode = 2

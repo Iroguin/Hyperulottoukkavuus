@@ -28,11 +28,13 @@ func _input(event):
 			Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 			mouse_captured = true
 
-	# Mouse look
+	# Mouse look (only in 3D/4D)
 	if event is InputEventMouseMotion and mouse_captured:
-		yaw -= event.relative.x * mouse_sensitivity
-		pitch -= event.relative.y * mouse_sensitivity
-		pitch = clamp(pitch, deg_to_rad(min_pitch), deg_to_rad(max_pitch))
+		var dim_manager = GameWorld4D.dimension_manager
+		if dim_manager and dim_manager.current_dimension >= 3:
+			yaw -= event.relative.x * mouse_sensitivity
+			pitch -= event.relative.y * mouse_sensitivity
+			pitch = clamp(pitch, deg_to_rad(min_pitch), deg_to_rad(max_pitch))
 
 func _process(delta):
 	if not target:
