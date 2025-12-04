@@ -85,3 +85,4 @@ metadata/_custom_type_script = "uid://co36lml6hwiel"
 
 [connection signal="dimension_switch" from="objects/Player_4d" to="LevelManager" method="_on_player_4d_dimension_switch"]
 [connection signal="light" from="objects/Player_4d" to="DirectionalLight3D" method="_on_player_4d_light"]
+[connection signal="light" from="objects/Player_4d" to="bgm" method="_on_player_4d_light"]

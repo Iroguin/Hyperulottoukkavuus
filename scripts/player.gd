@@ -131,8 +131,10 @@ func _input(event):
 			var new_dim = max(1, dim_manager.current_dimension - 1)
 			# Pass camera and player position for slice alignment
 			dim_manager.set_dimension(new_dim, camera, global_position)
-			if new_dim == 2:
-				emit_signal("light", false)
+			if new_dim <= 2:
+				emit_signal("light", false, new_dim)
+			else:
+				emit_signal("light", true, new_dim)
 		elif event.button_index == MOUSE_BUTTON_RIGHT:
 			# Increase dimension (1D -> 2D -> 3D -> 4D)
 			if dim_manager.current_dimension != 4:
@@ -140,8 +142,10 @@ func _input(event):
 			var new_dim = min(4, dim_manager.current_dimension + 1)
 			# Pass camera and player position for slice alignment
 			dim_manager.set_dimension(new_dim, camera, global_position)
-			if new_dim == 3:
-				emit_signal("light", true)
+			if new_dim >= 3:
+				emit_signal("light", true, new_dim)
+			else:
+				emit_signal("light", false, new_dim)
 
 	# Manual slice update with U key
 	if event is InputEventKey and event.pressed and event.keycode == KEY_U:
