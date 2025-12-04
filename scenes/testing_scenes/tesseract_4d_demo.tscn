@@ -1,13 +1,7 @@
-[gd_scene load_steps=5 format=3 uid="uid://bvw8n7q2xk3yj"]
+[gd_scene load_steps=4 format=3 uid="uid://bvw8n7q2xk3yj"]
 
-[ext_resource type="Script" path="res://scenes/testing_scenes/tesseract_4d_controller.gd" id="1_tesseract_controller"]
-[ext_resource type="PackedScene" uid="uid://c888f8ew3ov42" path="res://blender_tests/tesseract_red_test_5.glb" id="2_tesseract_mesh"]
-
-[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_1"]
-sky_top_color = Color(0.385, 0.454, 0.55, 1)
-sky_horizon_color = Color(0.646, 0.656, 0.67, 1)
-ground_bottom_color = Color(0.102, 0.11, 0.13, 1)
-ground_horizon_color = Color(0.646, 0.656, 0.67, 1)
+[ext_resource type="Script" uid="uid://28oa45i0hn66" path="res://scenes/testing_scenes/tesseract_4d_controller.gd" id="1_tesseract_controller"]
+[ext_resource type="PackedScene" uid="uid://bce38ip8aq1dr" path="res://blender_tests/dimensional_fruit_red_test_1.glb" id="2_jnv3h"]
 
 [sub_resource type="Environment" id="Environment_1"]
 background_mode = 2
@@ -28,7 +22,7 @@ environment = SubResource("Environment_1")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(0.866025, -0.433013, 0.25, 0, 0.5, 0.866025, -0.5, -0.75, 0.433013, 0, 5, 0)
-light_energy = 0.8
+light_energy = 0.882
 shadow_enabled = true
 
 [node name="Camera3D" type="Camera3D" parent="."]
@@ -38,4 +32,4 @@ fov = 60.0
 [node name="TesseractController" type="Node3D" parent="."]
 script = ExtResource("1_tesseract_controller")
 
-[node name="tesseract_red_test_5" parent="TesseractController" instance=ExtResource("2_tesseract_mesh")]
+[node name="dimensional_fruit_red_test_1" parent="TesseractController" instance=ExtResource("2_jnv3h")]
