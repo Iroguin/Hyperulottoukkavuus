@@ -311,6 +311,21 @@ sliced objects  Comprehensive GDUnit4 test coverage (>80%)
    - **Performance**: Supports up to 8 moving/rotating planes with ~0.1-0.3ms overhead @ 60 FPS
    - **Files modified**: [scripts/4d/infinite_floor_4d.gd](scripts/4d/infinite_floor_4d.gd)
    - **Result**: ✅ Eliminates flickering, ✅ Maintains performance, ✅ Supports moving/rotating planes
+13. **4D Object Ground Detection** (Fixed 2025-12-04): Player can now stand on and jump from 4D objects
+   - **Issue**: Player could collide with 4D objects but couldn't stand on them or jump (not set as grounded)
+   - **Root cause**: Collision system only set grounded state for infinite floors, not object-to-object collisions
+   - **Implementation**:
+     - Modified `check_collisions()` to track grounded state from both planes and objects
+     - Changed `check_plane_collisions()` to return boolean indicating if grounded
+     - Added `resolve_object_collision()` function with full physics response:
+       - Position correction (pushes objects apart based on penetration depth)
+       - Velocity response (bounce and friction using same physics as planes)
+       - Ground detection (checks if collision normal points upward and obj is above other)
+     - Ground detection threshold: normal.y > 0.7 (approximately 45-degree slope)
+     - Player marked as grounded if standing on plane OR on object
+   - **Bonus**: Objects can now push each other (if not in "static" group)
+   - **Files modified**: [scripts/4d/collision_manager_4d.gd](scripts/4d/collision_manager_4d.gd)
+   - **Result**: ✅ Player can jump from 4D cubes/objects, ✅ Proper physics for all collisions, ✅ Works in all dimensions
 
 ### 🎮 Current Game State
 
@@ -325,6 +340,9 @@ sliced objects  Comprehensive GDUnit4 test coverage (>80%)
 - ✅ 4D mode shows full volume without slicing
 - ✅ W position preserved when switching from 4D to 3D
 - ✅ Real-time XYZW position display on UI
+- ✅ Player can stand on and jump from 4D objects (not just floors)
+- ✅ Object-to-object collisions with physics response
+- ✅ Manual slice rotation in 1D/2D with Z/X keys
 
 **Known Limitations:**
 - Shows full mesh with visibility culling, not true geometric cross-sections
