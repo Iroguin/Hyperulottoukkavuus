@@ -1,6 +1,9 @@
 extends AudioStreamPlayer
 var time
-var music=[0,"res://music/placeholders/placeholder_1dmusiikkieihyva.ogg", "res://music/placeholders/placeholder_23dmusiikkijippii.ogg","res://music/placeholders/placeholder_23dmusiikkijippii.ogg", "res://music/placeholders/placeholder_23dmusiikkijippii.ogg"]
+var music=[0,"res://music/placeholders/placeholder_1dmusiikkieihyva.ogg",
+		 "res://music/placeholders/placeholder_23dmusiikkijippii.ogg",
+"res://music/placeholders/placeholder_23dmusiikkijippii.ogg",
+  "res://music/placeholders/placeholder_23dmusiikkijippii.ogg"]
 func _ready() -> void:
 	pass 
 func _on_player_4d_light(_a, dim) -> void:
