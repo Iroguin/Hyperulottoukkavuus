@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3 uid="uid://ga34k8cyrlqx"]
+
+[ext_resource type="PackedScene" uid="uid://dqcrq7br8jfhl" path="res://scenes/object_4d.tscn" id="1_o6le3"]
+[ext_resource type="PackedScene" uid="uid://cgrastx834xfy" path="res://blender_tests/tesseract_red_test_5.glb" id="2_osujd"]
+
+[node name="tesseract_v5_4d" instance=ExtResource("1_o6le3")]
+
+[node name="tesseract_red_test_5" parent="." index="0" instance=ExtResource("2_osujd")]

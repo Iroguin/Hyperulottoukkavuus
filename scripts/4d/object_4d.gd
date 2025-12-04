@@ -13,12 +13,19 @@ var exists_in_dimensions := [true, true, true, true]  # [1D, 2D, 3D, 4D]
 var current_dimension := 4  # What dimension we're viewing in
 
 # Visual representation
-@onready var mesh_instance: MeshInstance3D = $MeshInstance3D
+var mesh_instance: MeshInstance3D
 var shader_material: ShaderMaterial
 
 func _ready():
 	add_to_group("4d_objects")
 	GameWorld4D.register_object(self)
+
+	# Find MeshInstance3D (direct child or nested in imported scenes)
+	if has_node("MeshInstance3D"):
+		mesh_instance = get_node("MeshInstance3D")
+	else:
+		mesh_instance = find_mesh_instance_recursive(self)
+
 	setup_shader()
 
 func _physics_process(delta):
@@ -147,6 +154,18 @@ func setup_shader():
 		shader_material = ShaderMaterial.new()
 		shader_material.shader = preload("res://shaders/4d_projection.gdshader")
 		mesh_instance.set_surface_override_material(0, shader_material)
+
+func find_mesh_instance_recursive(node: Node) -> MeshInstance3D:
+	"""Recursively find the first MeshInstance3D in the scene tree"""
+	if node is MeshInstance3D:
+		return node
+
+	for child in node.get_children():
+		var result = find_mesh_instance_recursive(child)
+		if result:
+			return result
+
+	return null
 
 func compensate_perspective_scale():
 	scale = Vector3.ONE

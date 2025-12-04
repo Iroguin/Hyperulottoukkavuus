@@ -1,20 +1,30 @@
-[gd_scene load_steps=5 format=3 uid="uid://cfkwef15s8ye6"]
+[gd_scene load_steps=6 format=3 uid="uid://cfkwef15s8ye6"]
 
 [ext_resource type="PackedScene" uid="uid://dqcrq7br8jfhl" path="res://scenes/object_4d.tscn" id="1_xf3mr"]
 [ext_resource type="Script" uid="uid://dnt03okasiqj6" path="res://scripts/4d/dimensional_fruit_4d.gd" id="2_k1e1a"]
+[ext_resource type="Shader" uid="uid://dl546fpp4d6sp" path="res://shaders/4d_projection.gdshader" id="3_xf3mr"]
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3wish"]
-albedo_color = Color(1, 0.84313726, 0, 1)
-metallic = 1.0
-emission_enabled = true
-emission = Color(1, 0.84313726, 0, 1)
-emission_energy_multiplier = 2.0
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_k1e1a"]
+render_priority = 0
+shader = ExtResource("3_xf3mr")
+shader_parameter/w_distance = 3.0
+shader_parameter/angle_xw = 0.0
+shader_parameter/angle_yw = 0.0
+shader_parameter/angle_zw = 0.0
+shader_parameter/angle_xy = 0.0
+shader_parameter/angle_xz = 0.0
+shader_parameter/angle_yz = 0.0
+shader_parameter/line_width = 0.05
 
-[sub_resource type="TorusMesh" id="TorusMesh_jwl40"]
-material = SubResource("StandardMaterial3D_3wish")
+[sub_resource type="TorusMesh" id="TorusMesh_4c7hd"]
+material = SubResource("ShaderMaterial_k1e1a")
 
 [node name="DimensionalFruit" instance=ExtResource("1_xf3mr")]
 script = ExtResource("2_k1e1a")
+required_dimension = 4
+rotation_speed = 2.0
+bob_speed = 2.0
+bob_height = 0.3
 
-[node name="MeshInstance3D" parent="." index="0"]
-mesh = SubResource("TorusMesh_jwl40")
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." index="0"]
+mesh = SubResource("TorusMesh_4c7hd")
