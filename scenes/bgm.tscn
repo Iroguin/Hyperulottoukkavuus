@@ -1,9 +1,11 @@
-[gd_scene load_steps=2 format=3 uid="uid://qg1ega6u0858"]
+[gd_scene load_steps=3 format=3 uid="uid://qg1ega6u0858"]
 
+[ext_resource type="AudioStream" uid="uid://bm8lup4qccsw7" path="res://music/placeholders/placeholder_23dmusiikkijippii.ogg" id="1_3c3jb"]
 [ext_resource type="Script" uid="uid://v676sjgflb54" path="res://bgm.gd" id="1_q5y64"]
 
 [node name="bgm" type="Node2D"]
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("1_3c3jb")
 autoplay = true
 script = ExtResource("1_q5y64")

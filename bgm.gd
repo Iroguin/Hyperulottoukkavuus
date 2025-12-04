@@ -1,6 +1,6 @@
 extends AudioStreamPlayer
 var time
-var music
+var music="res://music/placeholders/placeholder_23dmusiikkijippii.ogg"
 func _ready() -> void:
 	pass 
 func switch():
