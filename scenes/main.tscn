@@ -6,11 +6,11 @@
 [ext_resource type="Script" uid="uid://caut3exbhkfrr" path="res://scripts/tester.gd" id="3_sugp2"]
 [ext_resource type="PackedScene" uid="uid://cfkwef15s8ye6" path="res://scenes/dimensional_fruit.tscn" id="4_tefeu"]
 [ext_resource type="Script" uid="uid://b5735vw5qn6o" path="res://scripts/4d/camera_4d_follow.gd" id="5_tbgi4"]
-[ext_resource type="PackedScene" path="res://scenes/tesseract_v5_4d.tscn" id="6_eb6dy"]
+[ext_resource type="PackedScene" uid="uid://ga34k8cyrlqx" path="res://scenes/tesseract_v5_4d.tscn" id="6_eb6dy"]
 [ext_resource type="PackedScene" uid="uid://bh8vwj3n2qk7t" path="res://scenes/infinite_floor.tscn" id="6_floor"]
 [ext_resource type="Script" uid="uid://co36lml6hwiel" path="res://scripts/level_manager.gd" id="7_o6xl0"]
 [ext_resource type="PackedScene" uid="uid://chd6hcfb5m7lf" path="res://scenes/level_ui.tscn" id="8_tipki"]
-[ext_resource type="PackedScene" uid="uid://qg1ega6u0858" path="res://scenes/bgm.tscn" id="12_eb6dy"]
+[ext_resource type="PackedScene" path="res://scenes/bgm.tscn" id="12_eb6dy"]
 [ext_resource type="PackedScene" uid="uid://c8g4yn4l5q8po" path="res://scenes/slice_plane_visualizer.tscn" id="13_trceg"]
 
 [sub_resource type="Environment" id="Environment_jyhfs"]

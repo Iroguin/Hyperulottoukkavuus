@@ -1,7 +1,6 @@
-[gd_scene load_steps=6 format=3 uid="uid://xaym516s5ehm"]
+[gd_scene load_steps=5 format=3 uid="uid://xaym516s5ehm"]
 
 [ext_resource type="Script" path="res://scripts/node_3d.gd" id="1_tyffc"]
-[ext_resource type="PackedScene" uid="uid://c888f8ew3ov42" path="res://blender_tests/tesseract_red_test_4.glb" id="2_ns6u7"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_tyffc"]
 sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
@@ -28,6 +27,3 @@ environment = SubResource("Environment_5t4e2")
 
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2.8959155)
-
-[node name="tesseract_red_test_4" parent="." instance=ExtResource("2_ns6u7")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.06970048, 0, -0.19983912)

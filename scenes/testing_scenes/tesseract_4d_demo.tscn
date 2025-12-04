@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://bvw8n7q2xk3yj"]
 
-[ext_resource type="Script" uid="uid://28oa45i0hn66" path="res://scenes/testing_scenes/tesseract_4d_controller.gd" id="1_tesseract_controller"]
-[ext_resource type="PackedScene" uid="uid://c888f8ew3ov42" path="res://blender_tests/tesseract_red_test_4.glb" id="2_tesseract_mesh"]
+[ext_resource type="Script" path="res://scenes/testing_scenes/tesseract_4d_controller.gd" id="1_tesseract_controller"]
+[ext_resource type="PackedScene" uid="uid://cgrastx834xfy" path="res://blender_tests/tesseract_red_test_5.glb" id="2_tesseract_mesh"]
 
 [sub_resource type="Environment" id="Environment_1"]
 background_mode = 2

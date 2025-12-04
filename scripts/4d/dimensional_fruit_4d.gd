@@ -5,7 +5,7 @@ class_name DimensionalFruit
 signal collected(by_player: Player4D)
 
 @export var required_dimension := 4  # Which dimension must player be in to collect
-@export var rotation_speed := 2.0
+@export var rotation_speed := 1.0
 @export var bob_speed := 2.0
 @export var bob_height := 0.3
 
