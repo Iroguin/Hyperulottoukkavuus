@@ -6,4 +6,5 @@
 [node name="bgm" type="AudioStreamPlayer"]
 stream = ExtResource("1_3c3jb")
 autoplay = true
+parameters/looping = true
 script = ExtResource("1_q5y64")
