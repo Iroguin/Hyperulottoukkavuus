@@ -55,6 +55,10 @@ func _process(delta):
 	# Get target's 3D projected position
 	var target_pos = target.global_position
 
+	# Update 4D projection origin to player's XYZ position
+	# This makes 4D perspective converge toward the player instead of world origin
+	dim_manager.projection_origin_3d = target_pos
+
 	# Check current dimension for camera behavior
 	var current_dim = dim_manager.current_dimension
 

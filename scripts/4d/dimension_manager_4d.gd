@@ -34,6 +34,7 @@ var slice_rotation_angle := 0.0
 
 # Projection parameters
 var projection_distance := 2.0  # Distance from 4D "camera" to projection hyperplane
+var projection_origin_3d := Vector3.ZERO  # XYZ point that 4D objects converge toward (updated to player position)
 
 func _ready():
 	# Initialize with default hyperplane
@@ -166,23 +167,24 @@ func project_4d_to_3d(pos_4d: Vector4) -> Vector3:
 	# Apply 4D rotations first
 	var rotated = apply_4d_rotations(pos_4d)
 
-	# Perspective projection from 4D to 3D
-	# Similar to 3D to 2D perspective: divide by distance
-	var w_offset = rotated.w - w_distance
+	# Use absolute distance for symmetric "pass by" behavior
+	# Objects are largest when at the same W coordinate, smaller when far in W
+	var w_distance_from_player = abs(rotated.w - w_distance)
 
-	# Clamp w_offset to prevent objects from going "behind" the 4D camera
-	# This is analogous to near-plane clipping in 3D graphics
-	# Objects closer than 0.1 units in W-space are clamped
-	var min_w_offset = -projection_distance + 0.1
-	w_offset = max(w_offset, min_w_offset)
+	# Prevent division issues when very close
+	w_distance_from_player = max(w_distance_from_player, 0.01)
 
-	var w_factor = projection_distance / (projection_distance + w_offset)
+	# Inverted formula: objects expand outward as they get further in W
+	# This makes objects far in W appear to diverge away from the player
+	var w_factor = (projection_distance + w_distance_from_player) / projection_distance
 
-	return Vector3(
-		rotated.x * w_factor,
-		rotated.y * w_factor,
-		rotated.z * w_factor
-	)
+	# Clamp to prevent unbounded growth
+	w_factor = min(w_factor, 3.0)
+
+	# Project away from projection_origin_3d based on W distance
+	# Objects at same W appear normal size, objects far in W appear larger and further away
+	var relative_pos = Vector3(rotated.x, rotated.y, rotated.z) - projection_origin_3d
+	return projection_origin_3d + (relative_pos * w_factor)
 
 func apply_4d_rotations(pos: Vector4) -> Vector4:
 	var result = pos
