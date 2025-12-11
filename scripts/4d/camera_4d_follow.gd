@@ -12,6 +12,12 @@ extends Camera3D
 var yaw := 0.0  # Horizontal rotation
 var pitch := 0.0  # Vertical rotation
 var mouse_captured := false
+var middle_mouse_pressed := false
+var p_key_pressed := false  # Alternative to middle mouse for 4D rotation
+
+# 4D rotation angles (ana/kata are 4D rotation terms)
+var rotation_ana := 0.0  # Up/down mouse = rotate around X into W (XW plane)
+var rotation_kata := 0.0  # Left/right mouse = rotate around Y into W (YW plane)
 
 func _ready():
 	# Capture mouse on start
@@ -28,13 +34,29 @@ func _input(event):
 			Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 			mouse_captured = true
 
+	# Track middle mouse button
+	if event is InputEventMouseButton:
+		if event.button_index == MOUSE_BUTTON_MIDDLE:
+			middle_mouse_pressed = event.pressed
+
+	# Track P key for 4D rotation
+	if event is InputEventKey:
+		if event.keycode == KEY_P:
+			p_key_pressed = event.pressed
+
 	# Mouse look (only in 3D/4D)
 	if event is InputEventMouseMotion and mouse_captured:
 		var dim_manager = GameWorld4D.dimension_manager
 		if dim_manager and dim_manager.current_dimension >= 3:
-			yaw -= event.relative.x * mouse_sensitivity
-			pitch -= event.relative.y * mouse_sensitivity
-			pitch = clamp(pitch, deg_to_rad(min_pitch), deg_to_rad(max_pitch))
+			if middle_mouse_pressed or p_key_pressed:
+				# Middle mouse or P key: 4D rotation (ana/kata)
+				rotation_kata -= event.relative.x * mouse_sensitivity  # Left/right = YW rotation
+				rotation_ana -= event.relative.y * mouse_sensitivity  # Up/down = XW rotation
+			else:
+				# Regular mouse: 3D rotation
+				yaw -= event.relative.x * mouse_sensitivity
+				pitch -= event.relative.y * mouse_sensitivity
+				pitch = clamp(pitch, deg_to_rad(min_pitch), deg_to_rad(max_pitch))
 
 func _process(delta):
 	if not target:
@@ -42,6 +64,11 @@ func _process(delta):
 
 	# Get dimension manager once
 	var dim_manager = GameWorld4D.dimension_manager
+
+	# Apply 4D rotation angles to dimension manager
+	# This rotates the entire 4D space based on camera controls
+	dim_manager.rotation_xw = rotation_ana  # Up/down middle mouse
+	dim_manager.rotation_yw = rotation_kata  # Left/right middle mouse
 
 	# Follow player's W position to maintain consistent perspective
 	if follow_w_axis:
