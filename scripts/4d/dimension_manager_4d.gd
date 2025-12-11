@@ -36,6 +36,9 @@ var slice_rotation_angle := 0.0
 var projection_distance := 2.0  # Distance from 4D "camera" to projection hyperplane
 var projection_origin_3d := Vector3.ZERO  # XYZ point that 4D objects converge toward (updated to player position)
 
+# Rotation center for 4D rotations (ana/kata)
+var rotation_center_4d := Vector4.ZERO  # 4D point to rotate around (updated to player position)
+
 func _ready():
 	# Initialize with default hyperplane
 	slice_hyperplane = HyperplaneND.new(Vector4(0, 0, 0, 1), Vector4.ZERO, 4)
@@ -187,21 +190,24 @@ func project_4d_to_3d(pos_4d: Vector4) -> Vector3:
 	return projection_origin_3d + (relative_pos * w_factor)
 
 func apply_4d_rotations(pos: Vector4) -> Vector4:
-	var result = pos
-	
+	# Translate to rotation center (rotate around player instead of world origin)
+	var relative_pos = pos - rotation_center_4d
+	var result = relative_pos
+
 	# XW rotation
 	if rotation_xw != 0:
 		result = rotate_xw(result, rotation_xw)
-	
+
 	# YW rotation
 	if rotation_yw != 0:
 		result = rotate_yw(result, rotation_yw)
-	
+
 	# ZW rotation
 	if rotation_zw != 0:
 		result = rotate_zw(result, rotation_zw)
-	
-	return result
+
+	# Translate back
+	return result + rotation_center_4d
 
 func rotate_xw(pos: Vector4, angle: float) -> Vector4:
 	var c = cos(angle)

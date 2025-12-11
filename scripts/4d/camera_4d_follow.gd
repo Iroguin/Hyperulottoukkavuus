@@ -65,6 +65,10 @@ func _process(delta):
 	# Get dimension manager once
 	var dim_manager = GameWorld4D.dimension_manager
 
+	# Set rotation center to player's 4D position
+	# This makes ana/kata rotations happen around the player instead of world origin
+	dim_manager.rotation_center_4d = target.position_4d
+
 	# Apply 4D rotation angles to dimension manager
 	# This rotates the entire 4D space based on camera controls
 	dim_manager.rotation_xw = rotation_ana  # Up/down middle mouse
